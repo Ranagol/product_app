@@ -23,6 +23,9 @@ class Product
     #[ORM\Column(type: Types::SMALLINT, options: ["unsigned" => true])]
     private ?int $size = null;
 
+    #[ORM\Column(options: ["default" => true])]
+    private ?bool $is_available = true;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,18 @@ class Product
     public function setSize(int $size): static
     {
         $this->size = $size;
+
+        return $this;
+    }
+
+    public function isAvailable(): ?bool
+    {
+        return $this->is_available;
+    }
+
+    public function setIsAvailable(bool $is_available): static
+    {
+        $this->is_available = $is_available;
 
         return $this;
     }
