@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Products!{% endblock %}
+
+{% block body %}
+    <h1>Products</h1>
+
+    {% for product in products %}
+        <p>{{ product }}</p>
+    {% endfor %}
+    {% if products is empty %}
+        <p>No products available.</p>
+    {% endif %}
+
+{% endblock %}

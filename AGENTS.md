@@ -1,5 +1,29 @@
 # AGENTS.md
 
+This is a Symfony 8.1 project running on PHP 8.4. 
+
+## Current Project State
+
+**What's installed:**
+- Symfony framework-bundle, console, twig-bundle, yaml, dotenv, flex, runtime (8.1.*)
+- Twig templating engine with extra bundle
+- MakerBundle (dev)
+- No database layer (ORM/ODM), no SecurityBundle, no API Platform, no Messenger
+
+**Project structure:**
+- Controllers in `src/Controller/` using attributes (`#[Route]`)
+- Twig templates in `templates/`
+- Tests in `tests/Controller/` using `WebTestCase`
+- Standard Symfony config in `config/`
+
+**Common next steps:**
+- Want a database? Run `composer require orm-pack` (installs Doctrine with recipe)
+- Want testing? Run `composer require --dev symfony/test-pack` (PHPUnit setup)
+- Want authentication? Run `composer require symfony/security-bundle`
+- Want API/JSON? Run `composer require symfony/serializer` + `composer require symfony/validator`
+
+---
+
 This is a Symfony project. Check `composer.json` for the exact Symfony/PHP version
 in use, and read `symfony.lock` to see which recipes ran. Don't assume Doctrine,
 Twig, API Platform, Messenger, or Lock are installed unless one of those says so.
