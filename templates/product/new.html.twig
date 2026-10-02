@@ -3,21 +3,6 @@
 {% block body %}
     <h1>New Product</h1>
 
-    {{ form_start(form) }}
-    {{ form_row(form.name) }}
-    {{ form_row(form.description) }}
-    {{ form_row(form.size) }}
-    <div>
-        <label>
-            {{ form_widget(form.is_available) }}
-            {{ form_label(form.is_available) }}
-        </label>
-        {{ form_errors(form.is_available) }}
-
-    </div>
-    {{ form_row(form.save, {'label': 'Save Product'}) }}
-    {{ form_end(form) }}
-
-
+    {{ include('product/_form.html.twig', {'form': form}) }}
 
 {% endblock %}
