@@ -7,7 +7,13 @@
 
     {% for product in products %}
         <p>
-            <div>{{ product.name }}</div>
+            <h2>
+                {# path() is a built in helper, that creates a URL for a given route./products/1 #}
+                <a href="{{ path('product_show', {'id': product.id}) }}">
+                    {{ product.name }}
+                </a>
+            </h2>
+
             <div>{{ product.description }}</div>
             <div>{{ product.isAvailable ? 'Available' : 'Not Available' }}</div>
 
