@@ -126,7 +126,7 @@ final class ProductController extends AbstractController
             ->handleRequest($request);
 
         // This is the deleting logic, but it is skipped with the GET request, with the if()
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {//isValid check for the CSRF token
             $entityManager->remove($product);
             $entityManager->flush();
 
