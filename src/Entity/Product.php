@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ProductRepository;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
@@ -15,12 +16,16 @@ class Product
     private ?int $id = null;
 
     #[ORM\Column(length: 128)]
+    #[Assert\NotBlank(message: "Name should not be blank")]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::SMALLINT, options: ["unsigned" => true])]
+    #[Assert\NotBlank(message: "Size should not be blank")]
+    #[Assert\Positive(message: "Size must be a positive number")]
+    #[Assert\Type(type: 'integer', message: 'Size must be an integer')]
     private ?int $size = null;
 
     #[ORM\Column(options: ["default" => true])]
