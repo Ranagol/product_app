@@ -37,8 +37,11 @@ final class ProductController extends AbstractController
             throw $this->createNotFoundException('Product not found');
         }
 
+        $categories = $product->getCategories();
+
         return $this->render('product/show.html.twig', [
             'product' => $product,
+            'categories' => $categories,
         ]);
     }
 

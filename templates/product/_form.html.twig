@@ -10,5 +10,11 @@
         {{ form_errors(form.is_available) }}
 
     </div>
+
+    {# Categories are displayed as checkboxes #}
+    {{ form_row(form.categories) }}
+
+    {# Submit button for saving the product #}
     {{ form_row(form.save, {'label': button_label|default('Save Product')}) }}
+
 {{ form_end(form) }}

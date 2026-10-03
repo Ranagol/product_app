@@ -8,6 +8,13 @@
     <p>Size: {{ product.size }}</p>
     <p>Available: {{ product.isAvailable ? 'Yes' : 'No' }}</p>
 
+    <p>
+        <h4>Categories:</h4>
+        {% for category in categories %}
+            <div>{{ category.name }}</div>
+        {% endfor %}
+    </p>
+
     <a href="{{ path('product_edit', {'id': product.id}) }}">Edit</a>
     <a href="{{ path('product_delete', {'id': product.id}) }}">Delete</a>
     <a href="{{ path('product_index') }}">Back to list</a>
