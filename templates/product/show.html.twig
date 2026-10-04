@@ -15,7 +15,10 @@
         {% endfor %}
     </p>
 
-    <a href="{{ path('product_edit', {'id': product.id}) }}">Edit</a>
-    <a href="{{ path('product_delete', {'id': product.id}) }}">Delete</a>
+    {% if is_granted('ROLE_USER') %}
+        <a href="{{ path('product_edit', {'id': product.id}) }}">Edit</a>
+        <a href="{{ path('product_delete', {'id': product.id}) }}">Delete</a>
+    {% endif %}
+
     <a href="{{ path('product_index') }}">Back to list</a>
 {% endblock %}

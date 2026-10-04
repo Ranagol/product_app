@@ -5,7 +5,9 @@
 {% block body %}
     <h1>Products</h1>
 
-    <a href="{{ path('product_new') }}">Create New Product</a>
+    {% if is_granted('ROLE_USER') %}
+        <a href="{{ path('product_new') }}">Create New Product</a>
+    {% endif %}
 
     {% for product in products %}
         <p>

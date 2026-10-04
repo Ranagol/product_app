@@ -7,16 +7,27 @@ use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/category')]
+#[IsGranted('ROLE_USER')]// Restrict access to users with ROLE_USER. Every registered user has this role by default.
 final class CategoryController extends AbstractController
 {
+    /**
+     * We want to restrict who can access categories index page.
+     * Only users with the ROLE_USER role can access this page.
+     *
+     * @param CategoryRepository $categoryRepository
+     * @return Response
+     */
     #[Route(name: 'app_category_index', methods: ['GET'])]
+
     public function index(CategoryRepository $categoryRepository): Response
     {
+
         return $this->render('category/index.html.twig', [
             'categories' => $categoryRepository->findAll(),
         ]);

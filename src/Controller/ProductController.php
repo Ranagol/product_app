@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 use App\Form\ProductType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -46,6 +47,7 @@ final class ProductController extends AbstractController
     }
 
     #[Route('/products/new', name: 'product_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_USER')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         // Create a new product instance
@@ -84,6 +86,7 @@ final class ProductController extends AbstractController
      * Secondly, to handle the actual POST request, for the actual editing in the DB.
      */
     #[Route('/products/{id}/edit', name: 'product_edit', methods: ['GET', 'POST'], requirements: ['id' => Requirement::DIGITS])]
+    #[IsGranted('ROLE_USER')]
     public function edit(Product $product, Request $request, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ProductType::class, $product);
@@ -109,6 +112,7 @@ final class ProductController extends AbstractController
      * and then for the DELETE request to actually delete the product.
      */
     #[Route('/products/{id}/delete', name: 'product_delete', methods: ['GET', 'DELETE'], requirements: ['id' => Requirement::DIGITS])]
+    #[IsGranted('ROLE_USER')]
     public function delete(Product $product, Request $request, EntityManagerInterface $entityManager): Response
     {
         /**

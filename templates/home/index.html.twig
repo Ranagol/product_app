@@ -4,7 +4,7 @@
 
 {% block body %}
 
-<h1>Hello, World!</h1>
+<h1>This is the Home page</h1>
 
 <div>
     {% if app.user %}
@@ -16,9 +16,13 @@
     {% endif %}
 </div>
 
-
+<p>Navigate to other sections:</p>
 <a href="{{ path('product_index') }}">Go to Product</a>
-<a href="{{ path('app_category_index') }}">Go to Category</a>
+
+{# We only want to show the category link to users with ROLE_USER #}
+{% if is_granted('ROLE_USER') %}
+    <a href="{{ path('app_category_index') }}">Go to Category</a>
+{% endif %}
 
 
 {% endblock %}

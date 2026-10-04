@@ -68,11 +68,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
+     * Roles define what can a user do in the app
      * @see UserInterface
      */
     public function getRoles(): array
     {
         $roles = $this->roles;
+
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
@@ -111,7 +113,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $data = (array) $this;
         $data["\0" . self::class . "\0password"] = hash('crc32c', $this->password);
-        
+
         return $data;
     }
 
