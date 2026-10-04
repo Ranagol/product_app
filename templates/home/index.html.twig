@@ -1,11 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Homexxx{% endblock %}
+{% block title %}Homepage Symfony{% endblock %}
 
 {% block body %}
-    <h1>Hello, World!</h1>
 
-    <a href="{{ path('app_register') }}">Register</a>
-    <a href="{{ path('product_index') }}">Go to Product</a>
-    <a href="{{ path('app_category_index') }}">Go to Category</a>
+<h1>Hello, World!</h1>
+
+<div>
+    {% if app.user %}
+        <p>Welcome, {{ app.user.name }}!</p>
+    {% else %}
+        <p>Please log in or register.</p>
+        <a href="{{ path('app_register') }}">Register</a> or
+        <a href="{{ path('app_login') }}">Login</a>
+    {% endif %}
+</div>
+
+
+<a href="{{ path('product_index') }}">Go to Product</a>
+<a href="{{ path('app_category_index') }}">Go to Category</a>
+
+
 {% endblock %}
