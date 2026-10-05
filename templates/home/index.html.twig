@@ -24,5 +24,10 @@
     <a href="{{ path('app_category_index') }}">Go to Category</a>
 {% endif %}
 
+{# We only want to show the admin link to users with ROLE_ADMIN #}
+{% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('admin') }}">Go to Admin panel</a>
+{% endif %}
+
 
 {% endblock %}
