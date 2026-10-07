@@ -3,6 +3,8 @@
 namespace App\Controller\Api;
 
 use App\Entity\Product;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -51,6 +53,51 @@ final class ProductController extends AbstractController
         return $this->json(
             $product,
             Response::HTTP_CREATED
+        );
+    }
+
+    #[Route('/api/products/{id}', methods: ['PATCH'], name: 'app_api_product_update')]
+    public function update(
+        Product $product,
+        Request $request,
+        SerializerInterface $serializer,
+        ValidatorInterface $validator,
+        EntityManagerInterface $entityManager,
+    ): JsonResponse
+    {
+        $serializer->deserialize(
+            $request->getContent(),
+            Product::class,
+            'json',
+            ['object_to_populate' => $product]
+        );
+
+        $errors = $validator->validate($product);
+
+        if (count($errors) > 0) {
+            return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $entityManager->flush();
+
+        return $this->json(
+            $product,
+            Response::HTTP_OK
+        );
+    }
+
+    #[Route('/api/products/{id}', methods: ['DELETE'], name: 'app_api_product_delete')]
+    public function delete(
+        Product $product,
+        EntityManagerInterface $entityManager,
+    ): JsonResponse
+    {
+        $entityManager->remove($product);
+        $entityManager->flush();
+
+        return $this->json(
+            null,
+            Response::HTTP_NO_CONTENT
         );
     }
 }
