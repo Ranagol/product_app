@@ -6,6 +6,7 @@ use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category
@@ -16,12 +17,14 @@ class Category
     private ?int $id = null;
 
     #[ORM\Column(length: 128)]
+    #[Groups(['api-product-index', 'api-product-detail'])]
     private ?string $name = null;
 
     /**
      * @var Collection<int, Product>
      */
     #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'categories')]
+    // #[Groups(['api-product-index', 'api-product-detail'])]
     private Collection $products;
 
     public function __construct()

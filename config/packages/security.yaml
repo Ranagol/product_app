@@ -12,6 +12,15 @@ security:
                 property: email
 
     firewalls:
+        api:
+            pattern: ^/api
+            # Disable cookie headers for API requests since it's stateless
+            stateless: true
+            provider: app_user_provider
+            json_login:
+                check_path: /api/login
+                username_path: email
+                password_path: password
         dev:
             # Ensure dev tools and static assets are always allowed
             pattern: ^/(_profiler|_wdt|assets|build)/
