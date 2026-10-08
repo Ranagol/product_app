@@ -14,8 +14,13 @@ security:
     firewalls:
         api:
             pattern: ^/api
+
             # Disable cookie headers for API requests since it's stateless
             stateless: true
+
+            access_token:
+                token_handler: App\Security\AccessTokenHandler
+
             provider: app_user_provider
             json_login:
                 check_path: /api/login
@@ -55,6 +60,8 @@ security:
         # Any url that starts with /admin requires the ROLE_ADMIN role for accessing
         - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        # Only logged in users with ROLE_USER role can access the /api endpoints
+        - { path: ^/api, roles: ROLE_USER }
 
 when@test:
     security:

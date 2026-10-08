@@ -2,6 +2,10 @@
     {{ form_row(form.name) }}
     {{ form_row(form.description) }}
     {{ form_row(form.size) }}
+
+    {# A single checkbox looks better with the box before the label, and form_row can't do that,
+    so we wrote this manually.
+     #}
     <div>
         <label>
             {{ form_widget(form.is_available) }}
@@ -14,7 +18,7 @@
     {# Categories are displayed as checkboxes #}
     {{ form_row(form.categories) }}
 
-    {# Submit button for saving the product #}
+    {# Submit button for saving the product, default is Save product #}
     {{ form_row(form.save, {'label': button_label|default('Save Product')}) }}
 
 {{ form_end(form) }}

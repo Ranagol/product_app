@@ -15,6 +15,7 @@ use App\Entity\Category;
  */
 class ProductType extends AbstractType
 {
+    // Creates the form
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -26,6 +27,10 @@ class ProductType extends AbstractType
                 ],
             ])
             ->add('is_available')
+
+            /**
+             * This is special, because this has the relations with the Category entity.
+             */
             ->add('categories', EntityType::class, [
                 // categories belong to Category entity
                 'class' => Category::class,
